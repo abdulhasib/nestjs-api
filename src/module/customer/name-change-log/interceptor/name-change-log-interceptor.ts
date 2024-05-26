@@ -23,9 +23,7 @@ export class NameChangeLogInterceptor implements NestInterceptor {
   ): Promise<Observable<any>> {
     const request = context.switchToHttp().getRequest();
     const customerNameId = +request.params.id;
-    const user = request.user; // Access the user from the request
-
-    console.log(user)
+    const user = request.user;
 
     const existingName = await this.nameService.getNameById(customerNameId);
     return next.handle().pipe(
@@ -43,7 +41,7 @@ export class NameChangeLogInterceptor implements NestInterceptor {
 
         this.nameChangeLogService.createNameChangeLog({
           customer_name_id: customerNameId,
-          user_id: user.id || 1, // Use the user object
+          user_id: user.id,
           data,
         });
       }),

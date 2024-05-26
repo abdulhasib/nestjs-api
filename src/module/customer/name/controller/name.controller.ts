@@ -10,6 +10,7 @@ import {
   HttpStatus,
   HttpException,
   UseInterceptors,
+  SetMetadata,
 } from '@nestjs/common';
 import { CreateNameDto } from '../dto/create-name.dto';
 import { UpdateNameDto } from '../dto/update-name.dto';
@@ -22,6 +23,7 @@ export class NameController {
   constructor(private readonly nameService: NameService) {}
 
   @Get()
+  @SetMetadata('isPublic', true)
   async getAllNames() {
     try {
       const names = await this.nameService.getAllNames();
@@ -67,7 +69,7 @@ export class NameController {
   async updateName(
     @Param('id') id: number,
     @Body() updateNameDto: UpdateNameDto,
-    @User() user: any
+    @User() user: any,
   ) {
     try {
       const updatedName = await this.nameService.updateName(id, updateNameDto);

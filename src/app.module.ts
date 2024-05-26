@@ -5,8 +5,11 @@ import { NameModule } from './module/customer/name/name.module';
 import { AddressModule } from './module/customer/address/address.module';
 import { NameChangeLogModule } from './module/customer/name-change-log/name-change-log.module';
 import { UserModule } from './module/user/user.module';
+import { AuthModule } from './module/auth/auth.module';
 import { MiddlewareModule } from './middleware/middleare.module';
 import { UserMiddleware } from './middleware/user/user.middleware';
+import { JwtAuthGuard } from './module/auth/guard/jwt-auth.guard';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -15,7 +18,14 @@ import { UserMiddleware } from './middleware/user/user.middleware';
     AddressModule,
     NameChangeLogModule,
     UserModule,
-    MiddlewareModule, // Ensure MiddlewareModule is imported
+    AuthModule,
+    MiddlewareModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
   ],
 })
 export class AppModule {

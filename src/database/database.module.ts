@@ -5,6 +5,7 @@ import { NameEntity } from '../module/customer/name/entity/name.entity';
 import { AddressEntity } from '../module/customer/address/entity/address.entity';
 import { NameChangeLogEntity } from '../module/customer/name-change-log/entity/name-change-log.entity';
 import { UserEntity } from '../module/user/entity/user.entity';
+import { TokenEntity } from '../module/auth/entity/token.entity';
 
 @Module({
   imports: [
@@ -16,7 +17,13 @@ import { UserEntity } from '../module/user/entity/user.entity';
       username: 'myuser',
       password: 'mypassword',
       database: 'customer',
-      entities: [NameEntity, AddressEntity, NameChangeLogEntity, UserEntity],
+      entities: [
+        NameEntity,
+        AddressEntity,
+        NameChangeLogEntity,
+        UserEntity,
+        TokenEntity,
+      ],
       synchronize: false,
     }),
   ],
